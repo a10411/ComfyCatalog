@@ -1,0 +1,5 @@
+C:\Users\nuno.veloso\Desktop\ComfyCatalog\ComfyCatalog API Project\ComfyCatalogAPI\ComfyCatalogBLL\obj\Debug\net6.0\ComfyCatalogBLL.csproj.AssemblyReference.cache
+C:\Users\nuno.veloso\Desktop\ComfyCatalog\ComfyCatalog API Project\ComfyCatalogAPI\ComfyCatalogBLL\obj\Debug\net6.0\ComfyCatalogBLL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\nuno.veloso\Desktop\ComfyCatalog\ComfyCatalog API Project\ComfyCatalogAPI\ComfyCatalogBLL\obj\Debug\net6.0\ComfyCatalogBLL.AssemblyInfoInputs.cache
+C:\Users\nuno.veloso\Desktop\ComfyCatalog\ComfyCatalog API Project\ComfyCatalogAPI\ComfyCatalogBLL\obj\Debug\net6.0\ComfyCatalogBLL.AssemblyInfo.cs
+C:\Users\nuno.veloso\Desktop\ComfyCatalog\ComfyCatalog API Project\ComfyCatalogAPI\ComfyCatalogBLL\obj\Debug\net6.0\ComfyCatalogBLL.csproj.CoreCompileInputs.cache
