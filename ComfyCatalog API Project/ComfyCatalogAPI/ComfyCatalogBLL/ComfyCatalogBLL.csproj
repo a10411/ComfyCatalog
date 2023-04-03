@@ -15,8 +15,4 @@
     <ProjectReference Include="..\ComfyCatalogDAL\ComfyCatalogDAL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Logic\" />
-  </ItemGroup>
-
 </Project>
