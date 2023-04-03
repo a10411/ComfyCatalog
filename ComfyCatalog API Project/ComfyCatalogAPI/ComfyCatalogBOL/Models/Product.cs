@@ -8,6 +8,10 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace ComfyCatalogBOL.Models
 {
+    /// <summary>
+    /// Business Object Layer relativa a um Product (Produto)
+    /// Implementa a class (ou modelo) Product e os seus construtores
+    /// </summary>
     public class Product
     {
         public int ProductID { get; set; }
@@ -23,6 +27,11 @@ namespace ComfyCatalogBOL.Models
         
         public Product() { }
 
+        /// <summary>
+        /// Construtor que visa criar um Product convertendo os dados obtidos a partir de um SqlDataReader
+        /// Construtor presente na layer DAL, que recebe dados para converter num objecto.
+        /// </summary>
+        /// <param name="rdr">SqlDataReader</param>
         public Product(SqlDataReader rdr)
         {
             this.ProductID = Convert.ToInt32(rdr["productID"]);

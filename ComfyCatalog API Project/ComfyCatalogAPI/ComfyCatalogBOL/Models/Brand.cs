@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace ComfyCatalogBOL.Models
 {
+    /// <summary>
+    /// Business Object Layer relativa a uma Brand (Marca)
+    /// Implementa a class (ou modelo) Brand e os seus construtores
+    /// </summary>
     public class Brand
     {
         public int BrandID { get; set; }
@@ -14,6 +18,11 @@ namespace ComfyCatalogBOL.Models
 
         public Brand() { }
 
+        /// <summary>
+        /// Construtor que visa criar uma Brand convertendo os dados obtidos a partir de um SqlDataReader
+        /// Construtor presente na layer DAL, que recebe dados para converter num objecto.
+        /// </summary>
+        /// <param name="rdr">SqlDataReader</param>
         public Brand(SqlDataReader rdr) 
         {
             this.BrandID = Convert.ToInt32(rdr["brandID"]);

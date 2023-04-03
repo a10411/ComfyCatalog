@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace ComfyCatalogBOL.Models
 {
+    /// <summary>
+    /// Business Object Layer relativa a uma Imagem
+    /// Implementa a class (ou modelo) Image e os seus construtores
+    /// </summary>
     public class Image
     {
         public int ImageID { get; set; }
@@ -14,6 +18,11 @@ namespace ComfyCatalogBOL.Models
 
         public Image() { }
 
+        /// <summary>
+        /// Construtor que visa criar uma Image convertendo os dados obtidos a partir de um SqlDataReader
+        /// Construtor presente na layer DAL, que recebe dados para converter num objecto.
+        /// </summary>
+        /// <param name="rdr">SqlDataReader</param>
         public Image(SqlDataReader rdr)
         {
             this.ImageID = Convert.ToInt32(rdr["imageID"]);

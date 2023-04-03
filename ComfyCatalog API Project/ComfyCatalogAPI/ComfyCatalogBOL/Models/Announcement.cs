@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace ComfyCatalogBOL.Models
 {
+    /// <summary>
+    /// Business Object Layer relative a um Announcement (Anúncio/Observação)
+    /// Implementa a class (ou modelo) Announcement e os seus construtores
+    /// </summary>
     public class Announcement
     {
         public int AnnouncementID { get; set; }
@@ -22,6 +26,11 @@ namespace ComfyCatalogBOL.Models
 
         public Announcement() { }
 
+        /// <summary>
+        /// Construtor que visa criar um Announcement convertendo os dados obtidos a partir de um SqlDataReader
+        /// Construtor presente na layer DAL, que recebe dados para converter num objecto.
+        /// </summary>
+        /// <param name="rdr">SqlDataReader</param>
         public Announcement(int announcementID, int productID, string title, string body, DateTime date_Hour)
         {
             AnnouncementID = announcementID;
