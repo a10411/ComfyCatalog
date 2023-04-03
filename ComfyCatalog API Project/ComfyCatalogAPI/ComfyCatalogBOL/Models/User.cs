@@ -24,7 +24,7 @@ namespace ComfyCatalogBOL.Models
 
         public User(SqlDataReader rdr)
         {
-            this.UserID = Convert.ToInt32(rdr["UserID"]);
+            this.UserID = Convert.ToInt32(rdr["userID"]);
             this.Username = rdr["username"].ToString() ?? String.Empty;
             this.Password_Hash = rdr["password_hash"].ToString() ?? String.Empty;
             this.Password_Salt = rdr["password_salt"].ToString() ?? String.Empty;

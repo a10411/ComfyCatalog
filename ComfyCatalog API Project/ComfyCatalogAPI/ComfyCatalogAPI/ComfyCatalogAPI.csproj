@@ -17,4 +17,8 @@
     <ProjectReference Include="..\ComfyCatalogDAL\ComfyCatalogDAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>

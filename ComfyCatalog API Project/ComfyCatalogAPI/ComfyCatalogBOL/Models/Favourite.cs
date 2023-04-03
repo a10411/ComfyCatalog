@@ -9,7 +9,7 @@ namespace ComfyCatalogBOL.Models
 {
     public class Favourite
     {
-        public int FavouriteID  {get; set }
+        public int FavouriteID  { get; set; }
 
         public int UserID { get; set; } 
 

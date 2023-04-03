@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace ComfyCatalogBOL.Models
 {
-    internal class Product_Image
+    public class Product_Image
     {
+        public int ProductImage { get; set; }
+        public int ProductID { get; set;}
+        public int ImageID { get; set; }
+
     }
 }
