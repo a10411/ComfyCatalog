@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ComfyCatalogBLL.Logic
 {
-    internal class ProductLogic
+    public class ProductLogic
     {
     }
 }

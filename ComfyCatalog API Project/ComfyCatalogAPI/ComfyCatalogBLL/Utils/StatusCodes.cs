@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ComfyCatalogBLL.Utils
 {
-    public enum StatusCode
+    public enum StatusCodes
     {
         SUCCESS = 200,
         NOCONTENT = 204,

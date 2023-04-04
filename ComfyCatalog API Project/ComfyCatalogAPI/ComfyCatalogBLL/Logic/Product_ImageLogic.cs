@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ComfyCatalogBLL.Logic
 {
-    internal class Product_ImageLogic
+    public class Product_ImageLogic
     {
     }
 }

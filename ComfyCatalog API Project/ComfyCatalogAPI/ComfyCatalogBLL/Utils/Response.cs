@@ -16,7 +16,7 @@ namespace ComfyCatalogBLL.Utils
         /// <summary>
         /// Status Code do pedido (200 sucesso, 401 unauthorized, etc.)
         /// </summary>
-        public StatusCode StatusCode { get; set; }
+        public StatusCodes StatusCode { get; set; }
 
         /// <summary>
         /// Mensagem do pedido, ex: "Sucesso na obtenção dos dados"
@@ -36,7 +36,7 @@ namespace ComfyCatalogBLL.Utils
         /// <param name="statusCode">Status Code da response</param>
         /// <param name="message">Mensagem da response</param>
         /// <param name="data">Dados da response</param>
-        public Response(StatusCode statusCode, string message, object data)
+        public Response(StatusCodes statusCode, string message, object data)
         {
             StatusCode = statusCode;
             Message = message;
@@ -45,7 +45,7 @@ namespace ComfyCatalogBLL.Utils
 
         public Response() 
         {
-            StatusCode = StatusCode.NOCONTENT;
+            StatusCode = StatusCodes.NOCONTENT;
             Message = "No content found.";
             Data = null;
         }

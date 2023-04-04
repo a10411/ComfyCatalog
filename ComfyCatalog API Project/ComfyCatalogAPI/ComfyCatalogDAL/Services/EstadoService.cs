@@ -11,13 +11,14 @@ namespace ComfyCatalogDAL.Services
 {
     public class EstadoService
     {
-        public static async Task<List<Estado>> GetAllEstados(string conString)
+        public static async Task<List<Estado>>  GetAllEstados(string conString)
         {
             var estadoList = new List<Estado>();
             using (SqlConnection con = new SqlConnection(conString))
             {
                 SqlCommand cmd = new SqlCommand("SELECT * FROM Estado", con);
                 cmd.CommandType = CommandType.Text;
+                con.Open();
 
                 SqlDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read())

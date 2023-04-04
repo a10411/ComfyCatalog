@@ -7,27 +7,24 @@ using ComfyCatalogDAL;
 using Microsoft.AspNetCore.Authorization;
 using StatusCodes = Microsoft.AspNetCore.Http.StatusCodes;
 
-
-
 namespace ComfyCatalogAPI.Controllers
 {
-
     [ApiController]
     [Route("[controller]")]
-    public class EstadoController : Controller
+    public class ObservationController : Controller
     {
         /// <summary>
         /// Construtor e variável que visam permitir a obtenção da connectionString da base de dados, que reside no appsettings.json
         /// </summary>
         private readonly IConfiguration _configuration;
-        
-        public EstadoController(IConfiguration configuration)
+
+        public ObservationController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
         /// <summary>
-        /// Request GET relativo aos Estados
+        /// Request GET relativo às obsevações
         /// </summary>
         /// <returns>Retorna a response obtida pelo BLL para o utilizador. Idealmente, retornará a lista de Estados</returns> 
         [SwaggerResponse(StatusCodes.Status200OK, Description = "Method successfully executed.")]
@@ -38,13 +35,14 @@ namespace ComfyCatalogAPI.Controllers
         [SwaggerResponse(StatusCodes.Status404NotFound, Description = "The requested resource was not found.")]
         [SwaggerResponse(StatusCodes.Status500InternalServerError, Description = "An unexpected API error has occurred.")]
         [HttpGet]
-        public async Task<IActionResult> GetAllEstados()
+        public async Task<IActionResult> GetAllObservations()
         {
             string CS = _configuration.GetConnectionString("WebApiDatabase");
-            Response response = await EstadoLogic.GetAllEstados(CS);
-            if (response.StatusCode != ComfyCatalogBLL.Utils.StatusCodes.SUCCESS)
+            Response response = await ObservationLogic.GetAllObservations(CS);
+            if(response.StatusCode != ComfyCatalogBLL.Utils.StatusCodes.SUCCESS) 
             {
                 return StatusCode((int)response.StatusCode);
+
             }
             return new JsonResult(response);
         }
