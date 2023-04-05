@@ -15,6 +15,7 @@ namespace ComfyCatalogBOL.Models
     {
         public int ObservationID { get; set; }
         public int ProductID { get; set; }
+        public int UserID { get; set; } 
         public string Title { get; set; }
         public string Body { get; set; }
         public DateTime Date_Hour { get; set; }
@@ -27,9 +28,9 @@ namespace ComfyCatalogBOL.Models
         /// Construtor presente na layer DAL, que recebe dados para converter num objecto.
         /// </summary>
         /// <param name="rdr">SqlDataReader</param>
-        public Observation(int observationID, int productID, string title, string body, DateTime date_Hour)
+        public Observation(int obsID, int productID, string title, string body, DateTime date_Hour)
         {
-            ObservationID = observationID;
+            ObservationID = obsID;
             ProductID = productID;
             Title = title;
             Body = body;
@@ -40,6 +41,7 @@ namespace ComfyCatalogBOL.Models
         {
             this.ObservationID = Convert.ToInt32(rdr["obsID"]);
             this.ProductID = Convert.ToInt32(rdr["productID"]);
+            this.UserID = Convert.ToInt32(rdr["userID"]);
             this.Title = rdr["title"].ToString() ?? String.Empty;
             this.Body = rdr["body"].ToString() ?? String.Empty;
             this.Date_Hour = Convert.ToDateTime(rdr["date_hour"].ToString());
