@@ -162,13 +162,13 @@ namespace ComfyCatalogDAL.Services
         /// <param name="conString">String de conexão à base de dados, presente no projeto "ComfyCatalogAPI", no ficheiro appsettings.json</param>
         /// <param name="obsID">ID da observação a apagar</param>
         /// <returns>True caso tudo tenha corrido bem (observação removida), algum erro caso a observação não tenha sido removida.</returns>
-        public static async Task<Boolean> DeleteObservation(string conString, int obsID)
+        public static async Task<Boolean> DeleteObservation(string conString, int obsToDeleteID)
         {
             try
             {
                 using(SqlConnection con = new SqlConnection (conString))
                 {
-                    string deleteObs = $"DELETE FROM Observation WHERE obsID ={obsID}";
+                    string deleteObs = $"DELETE FROM Observation WHERE obsID ={obsToDeleteID}";
                     using(SqlCommand queryDeleteObs = new SqlCommand(deleteObs))
                     {
                         queryDeleteObs.Connection = con;
