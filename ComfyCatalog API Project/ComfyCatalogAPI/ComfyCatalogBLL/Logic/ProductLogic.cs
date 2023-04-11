@@ -3,10 +3,66 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ComfyCatalogBLL.Utils;
+using ComfyCatalogBOL.Models;
+using ComfyCatalogDAL;
+using ComfyCatalogDAL.Services;
 
 namespace ComfyCatalogBLL.Logic
 {
+    /// <summary>
+    /// Esta classe implementa todas as funções que, por sua vez, implementam a parte lógica de cada request relativo aos produtos
+    /// Nesta classe, abstraímo-nos de rotas, autorizações, links, etc. que dizem respeito à API
+    /// Porém, a API consome esta classe no sentido em que esta é responsável por transformar objetos vindos do DAL em responses.
+    /// Esta classe é a última a lidar com objetos (models) e visa abstrair a API dos mesmos
+    /// Gera uma response com um status code e dados
     public class ProductLogic
     {
+        /// <summary>
+        /// Trata da parte lógica relativa à obtenção de todas os produtos dados estes que residem na base de dados
+        /// Gera uma resposta que será utilizada pela ComfyCatalogAPI para responder ao request do utilizador (GET - Product (GetAllProducts))
+        /// </summary>
+        /// <param name="conString">Connection String da base de dados, que reside no appsettings.json do projeto ComfyCatalogAPI</param>
+        /// <returns>Response com Status Code, mensagem e dados (Lista de salas)</returns>
+        
+        public static async Task<Response> GetAllProducts(string conString)
+        {
+            Response response = new Response();
+            List<Product> productsList = await ProductService.GetAllProducts(conString);
+            if (productsList.Count != 0)
+            {
+                response.StatusCode = StatusCodes.SUCCESS;
+                response.Message = "Sucesso na obtenção dos dados";
+                response.Data = productsList;
+            }
+            return response;
+        }
+
+        /// <summary>
+        /// Trata da parte lógica relativa à criação de um produto na base de dados (sala que diz respeito a um Produto)
+        /// Gera uma resposta que será utilizada pela ComfyCatalogAPI para responder ao request do utilizador (POST - Product (AddProduct))
+        /// </summary>
+        /// <param name="conString">Connection String da base de dados, que reside no appsettings.json do projeto ComfyCatalogAPI</param>
+        /// <param name="productToAdd">Product a adicionar </param>
+        /// <returns>Response com Status Code e mensagem (Status Code 200 caso sucesso, ou 500 INTERNAL SERVER ERROR caso tenha havido algum erro</returns>
+
+        public static async Task<Response> AddProduct(string conString, Product productToAdd)
+        {
+            Response response = new Response();
+            try
+            {
+                if(await ProductService.AddProduct(conString, productToAdd))
+                {
+                    response.StatusCode = StatusCodes.SUCCESS;
+                    response.Message = "Product was added to Catalog.";
+                }
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = StatusCodes.INTERNALSERVERERROR;
+                response.Message = ex.ToString();
+            }
+            return response;
+        }
     }
 }

@@ -17,13 +17,13 @@ namespace ComfyCatalogBOL.Models
         public int ProductID { get; set; }
         public int BrandID { get; set; }
         public int EstadoID { get; set; }
-        public string Name { get; set; }
+        public string ProductName { get; set; }
         public string Sport { get; set; }
+        
         public string Composition { get; set; }
-        public int Cod_Size { get; set; }
         public string Colour { get; set; }
         public int ClientNumber { get; set; }
-        public string Type { get; set; }    
+        public string ProductType { get; set; }    
         
         public Product() { }
 
@@ -37,13 +37,12 @@ namespace ComfyCatalogBOL.Models
             this.ProductID = Convert.ToInt32(rdr["productID"]);
             this.BrandID = Convert.ToInt32(rdr["brandID"]);
             this.EstadoID = Convert.ToInt32(rdr["estadoID"]);
-            this.Name = rdr["name"].ToString() ?? string.Empty;
+            this.ProductName = rdr["productName"].ToString() ?? string.Empty;
             this.Sport = rdr["sport"].ToString() ?? string.Empty;
             this.Composition = rdr["composition"].ToString() ?? string.Empty;
-            this.Cod_Size = Convert.ToInt32(rdr["cod_Size"]);
             this.Colour = rdr["colour"].ToString() ?? string.Empty;
             this.ClientNumber = Convert.ToInt32(rdr["clientNumber"]);
-            this.Type = rdr["type"].ToString() ?? string.Empty;
+            this.ProductType = rdr["productType"].ToString() ?? string.Empty;
 
 
         }
