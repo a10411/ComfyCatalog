@@ -8,5 +8,33 @@ namespace ComfyCatalogDAL.Services
 {
     internal class AdminService
     {
+
+        #region GET
+
+
+
+        #endregion
+
+
+        #region POST
+
+
+
+        #endregion
+
+
+        #region PATCH/PUT
+
+
+
+        #endregion
+
+
+        #region DELETE
+
+
+
+        #endregion
+
     }
 }

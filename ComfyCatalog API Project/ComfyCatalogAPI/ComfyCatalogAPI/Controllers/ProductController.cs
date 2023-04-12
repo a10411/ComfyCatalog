@@ -31,7 +31,7 @@ namespace ComfyCatalogAPI.Controllers
         /// <summary>
         /// Request GET relativo aos Produtos
         /// </summary>
-        /// <returns>Retorna a response obtida pelo BLL para o utilizador. Idealmente, retornará a lista de Comunicados</returns>
+        /// <returns>Retorna a response obtida pelo BLL para o utilizador. Idealmente, retornará a lista de produtos</returns>
         [SwaggerResponse(StatusCodes.Status200OK, Description = "Method successfully executed.")]
         [SwaggerResponse(StatusCodes.Status204NoContent, Description = "No content was found.")]
         [SwaggerResponse(StatusCodes.Status400BadRequest, Description = "The endpoint or data structure is not in line with expectations.")]
@@ -40,6 +40,7 @@ namespace ComfyCatalogAPI.Controllers
         [SwaggerResponse(StatusCodes.Status404NotFound, Description = "The requested resource was not found.")]
         [SwaggerResponse(StatusCodes.Status500InternalServerError, Description = "An unexpected API error has occurred.")]
         [HttpGet]
+        [Route("/GetAllProducts")]
         public async Task<IActionResult> GetAllProducts()
         {
             string CS = _configuration.GetConnectionString("WebApiDatabase");

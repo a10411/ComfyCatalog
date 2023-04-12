@@ -26,7 +26,7 @@ namespace ComfyCatalogBOL.Models
         public Brand(SqlDataReader rdr) 
         {
             this.BrandID = Convert.ToInt32(rdr["brandID"]);
-            this.BrandName = rdr["name"].ToString() ?? string.Empty;
+            this.BrandName = rdr["brandName"].ToString() ?? string.Empty;
         }
     }
 }

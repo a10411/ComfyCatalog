@@ -16,19 +16,16 @@ namespace ComfyCatalogDAL.Services
     /// </summary>
     public class ProductService
     {
-        #region GET
+            #region GET
 
         /// <summary>
-        /// Método que visa aceder à base de dados SQL Server via query e obter os Produtos de um User
+        /// Método que visa aceder à base de dados SQL Server via query e obter os Produtos
         /// </summary>
         /// <param name="conString">String de conexão à base de dados, presente no projeto "ComfyCatalogAPI", no ficheiro appsettings.json</param>
-        /// <param name="userID">ID do User para o qual pretendemos ver os produtos</param>
-        /// <returns>Lista dos produtos do user</returns>
+        /// <returns>Lista dos produtos</returns>
 
         public static async Task<List<Product>> GetAllProducts(string conString)
-        {
-          
-           
+        {   
         var productList = new List<Product>();
             using (SqlConnection con = new SqlConnection(conString))
             {
@@ -125,6 +122,7 @@ namespace ComfyCatalogDAL.Services
             Product productCurrent = await GetProduct(conString, productUpdated.ProductID);
             productUpdated.ProductID = productUpdated.ProductID != 0 ? productUpdated.ProductID : productCurrent.ProductID;
             productUpdated.BrandID = productUpdated.BrandID != 0 ? productUpdated.BrandID : productCurrent.BrandID;
+            productUpdated.EstadoID = productUpdated.EstadoID != 0 ? productUpdated.EstadoID : productCurrent.EstadoID;
             productUpdated.ProductName = productUpdated.ProductName != String.Empty && productUpdated.ProductName != null ? productUpdated.ProductName : productCurrent.ProductName;
             productUpdated.Sport = productUpdated.Sport != String.Empty && productUpdated.Sport != null ? productUpdated.Sport : productCurrent.Sport;
             productUpdated.Composition = productUpdated.Composition != String.Empty && productUpdated.Composition != null ? productUpdated.Composition : productCurrent.Composition;
@@ -142,6 +140,7 @@ namespace ComfyCatalogDAL.Services
                         queryUpdateProduct.Connection = con;
                         queryUpdateProduct.Parameters.Add("@productID", SqlDbType.Int).Value = productUpdated.ProductID;
                         queryUpdateProduct.Parameters.Add("@brandID", SqlDbType.Int).Value = productUpdated.BrandID;
+                        queryUpdateProduct.Parameters.Add("@estadoID", SqlDbType.Int).Value = productCurrent.EstadoID;
                         queryUpdateProduct.Parameters.Add("productName", SqlDbType.Char).Value = productUpdated.ProductName;
                         queryUpdateProduct.Parameters.Add("@sport", SqlDbType.Char).Value = productUpdated.Sport;
                         queryUpdateProduct.Parameters.Add("@composition", SqlDbType.Char).Value = productUpdated.Composition;

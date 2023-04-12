@@ -23,7 +23,7 @@ namespace ComfyCatalogBLL.Logic
         /// Gera uma resposta que será utilizada pela ComfyCatalogAPI para responder ao request do utilizador (GET - Product (GetAllProducts))
         /// </summary>
         /// <param name="conString">Connection String da base de dados, que reside no appsettings.json do projeto ComfyCatalogAPI</param>
-        /// <returns>Response com Status Code, mensagem e dados (Lista de salas)</returns>
+        /// <returns>Response com Status Code, mensagem e dados (Lista de produtos)</returns>
         
         public static async Task<Response> GetAllProducts(string conString)
         {
