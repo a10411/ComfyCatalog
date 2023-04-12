@@ -64,5 +64,43 @@ namespace ComfyCatalogBLL.Logic
             }
             return response;
         }
+
+        /// <summary>
+        /// Trata da parte lógica relativa à atualização de um produto que resida na base de dados
+        /// Gera uma resposta que será utilizada pela ComfyCatalogAPI para responder ao request do utilizador (PATCH - Produto (UpdateProduct))
+        /// </summary>
+        /// <param name="conString">Connection String da base de dados, que reside no appsettings.json do projeto ComfyCatalogAPI</param>
+        /// <param name="productToUpdate">Produto inserido pelo utilizador para atualizar</param>
+        /// <returns>Response com Status Code, mensagem e dados (Produto atualizado)</returns>
+
+        public static async Task<Response> UpdateProduct(string conString, Product productToUpdate)
+        {
+            Response response = new Response();
+            try
+            {
+                Product productReturned = await ProductService.UpdateProduct(conString,productToUpdate);
+                if(productReturned.ProductID == 0)
+                {
+                    response.StatusCode = StatusCodes.NOTFOUND;
+                    response.Message = "Product was not found";
+                }
+                else
+                {
+                    response.StatusCode = StatusCodes.SUCCESS;
+                    response.Message = "Product was updated";
+                    response.Data = productReturned;
+                }
+            }
+            catch(Exception ex)
+            {
+                response.StatusCode= StatusCodes.INTERNALSERVERERROR;
+                response.Message = ex.ToString();
+            }
+            return response;
+        }
+
+
+
+
     }
 }

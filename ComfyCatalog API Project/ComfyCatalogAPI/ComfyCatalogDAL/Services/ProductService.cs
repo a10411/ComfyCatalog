@@ -128,10 +128,11 @@ namespace ComfyCatalogDAL.Services
             {
                 using (SqlConnection con = new SqlConnection(conString))
                 {
-                    string updateProduct = "UPDATE Product Set brandID = @brandID, estadoID = @estadoID, productName = @productName, sport = @sport, composition = @composition, colour = @colour, clientNumber = @clientNumber, productType = @productType";
+                    string updateProduct = "UPDATE Product Set brandID = @brandID, estadoID = @estadoID, productName = @productName, sport = @sport, composition = @composition, colour = @colour, clientNumber = @clientNumber, productType = @productType WHERE productID = @productID";
                     using (SqlCommand queryUpdateProduct = new SqlCommand(updateProduct))
                     {
                         queryUpdateProduct.Connection = con;
+                        queryUpdateProduct.Parameters.Add("@productID", SqlDbType.Int).Value = productUpdated.ProductID;
                         queryUpdateProduct.Parameters.Add("@brandID", SqlDbType.Int).Value = productUpdated.BrandID;
                         queryUpdateProduct.Parameters.Add("@estadoID", SqlDbType.Int).Value = productUpdated.EstadoID;
                         queryUpdateProduct.Parameters.Add("productName", SqlDbType.Char).Value = productUpdated.ProductName;

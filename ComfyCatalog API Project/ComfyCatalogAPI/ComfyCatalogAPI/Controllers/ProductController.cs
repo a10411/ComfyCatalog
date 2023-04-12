@@ -76,5 +76,31 @@ namespace ComfyCatalogAPI.Controllers
             return new JsonResult(response);
         }
 
+
+        /// <summary>
+        /// Request PATCH relativo a um produto, que o utilizador pretenda atualizar
+        /// </summary>
+        /// <param name="productToUpdate">Sala que o gestor pretende atualizar na BD</param>
+        /// <returns>Retorna a resposta obtida pelo BLL para o gestor. Idealmente, retornará a sala atualizada, com um status code 200 (sucesso).</returns>
+        [SwaggerResponse(StatusCodes.Status200OK, Description = "Method successfully executed.")]
+        [SwaggerResponse(StatusCodes.Status204NoContent, Description = "No content was found.")]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, Description = "The endpoint or data structure is not in line with expectations.")]
+        [SwaggerResponse(StatusCodes.Status401Unauthorized, Description = "Api key authentication was not provided or it is not valid.")]
+        [SwaggerResponse(StatusCodes.Status403Forbidden, Description = "You do not have permissions to perform the operation.")]
+        [SwaggerResponse(StatusCodes.Status404NotFound, Description = "The requested resource was not found.")]
+        [SwaggerResponse(StatusCodes.Status500InternalServerError, Description = "An unexpected API error has occurred.")]
+        //[Authorize]
+        [HttpPatch]
+        public async Task<IActionResult> UpdateProduct(Product productToUpdate)
+        {
+            string CS = _configuration.GetConnectionString("WebApiDatabase");
+            Response response = await ProductLogic.UpdateProduct(CS, productToUpdate);
+            if (response.StatusCode != ComfyCatalogBLL.Utils.StatusCodes.SUCCESS)
+            {
+                return StatusCode((int)response.StatusCode);
+            }
+            return new JsonResult(response);
+        }
+
     }
 }
