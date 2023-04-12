@@ -16,13 +16,15 @@ namespace ComfyCatalogDAL.Services
     /// </summary>
     public class ProductService
     {
+        #region GET
+
         /// <summary>
         /// Método que visa aceder à base de dados SQL Server via query e obter os Produtos de um User
         /// </summary>
         /// <param name="conString">String de conexão à base de dados, presente no projeto "ComfyCatalogAPI", no ficheiro appsettings.json</param>
         /// <param name="userID">ID do User para o qual pretendemos ver os produtos</param>
         /// <returns>Lista dos produtos do user</returns>
-        
+
         public static async Task<List<Product>> GetAllProducts(string conString)
         {
           
@@ -45,6 +47,30 @@ namespace ComfyCatalogDAL.Services
             return productList;           
         }
 
+        public static async Task<Product> GetProduct(string conString, int productID)
+        {
+            Product product = new Product();
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                SqlCommand cmd = new SqlCommand($"SELECT * FROM Product where productID = {productID}", con);
+                cmd.CommandType = CommandType.Text;
+                con.Open();
+
+                SqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    product = new Product(rdr);
+                }
+                rdr.Close();
+                con.Close();
+            }
+            return product;
+            // retorna um produto com id = 0 caso não encontre nenhum com este ID
+        }
+
+        #endregion
+
+        #region POST
         /// <summary>
         /// Método que visa aceder à base de dados SQL Server via query e adicionar um registo de um produto(adicionar um produto)
         /// </summary>
@@ -83,26 +109,9 @@ namespace ComfyCatalogDAL.Services
             }
         }
 
-        public static async Task<Product>  GetProduct(string conString, int productID)
-        {
-            Product product = new Product();
-            using (SqlConnection con = new SqlConnection(conString))
-            {
-                SqlCommand cmd = new SqlCommand($"SELECT * FROM Product where productID = {productID}", con);
-                cmd.CommandType = CommandType.Text;
-                con.Open();
+        #endregion
 
-                SqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
-                {
-                    product = new Product(rdr);
-                }
-                rdr.Close();
-                con.Close();
-            }
-            return product;
-            // retorna um produto com id = 0 caso não encontre nenhum com este ID
-        }
+        #region PATCH/PUT
 
         /// <summary>
         /// Método que visa aceder à base de dados SQL Server via query e atualizar o registo de um producto
@@ -116,7 +125,6 @@ namespace ComfyCatalogDAL.Services
             Product productCurrent = await GetProduct(conString, productUpdated.ProductID);
             productUpdated.ProductID = productUpdated.ProductID != 0 ? productUpdated.ProductID : productCurrent.ProductID;
             productUpdated.BrandID = productUpdated.BrandID != 0 ? productUpdated.BrandID : productCurrent.BrandID;
-            productUpdated.EstadoID = productUpdated.EstadoID != 0 ? productUpdated.EstadoID :  productCurrent.EstadoID;
             productUpdated.ProductName = productUpdated.ProductName != String.Empty && productUpdated.ProductName != null ? productUpdated.ProductName : productCurrent.ProductName;
             productUpdated.Sport = productUpdated.Sport != String.Empty && productUpdated.Sport != null ? productUpdated.Sport : productCurrent.Sport;
             productUpdated.Composition = productUpdated.Composition != String.Empty && productUpdated.Composition != null ? productUpdated.Composition : productCurrent.Composition;
@@ -134,7 +142,6 @@ namespace ComfyCatalogDAL.Services
                         queryUpdateProduct.Connection = con;
                         queryUpdateProduct.Parameters.Add("@productID", SqlDbType.Int).Value = productUpdated.ProductID;
                         queryUpdateProduct.Parameters.Add("@brandID", SqlDbType.Int).Value = productUpdated.BrandID;
-                        queryUpdateProduct.Parameters.Add("@estadoID", SqlDbType.Int).Value = productUpdated.EstadoID;
                         queryUpdateProduct.Parameters.Add("productName", SqlDbType.Char).Value = productUpdated.ProductName;
                         queryUpdateProduct.Parameters.Add("@sport", SqlDbType.Char).Value = productUpdated.Sport;
                         queryUpdateProduct.Parameters.Add("@composition", SqlDbType.Char).Value = productUpdated.Composition;
@@ -154,8 +161,75 @@ namespace ComfyCatalogDAL.Services
             }
         }
 
+        /// <summary>
+        /// Método que visa aceder à base de dados SQL Server via query e atualizar o estado de um product
+        /// </summary>
+        /// <param name="conString">String de conexão à base de dados, presente no projeto "ComfyCatalogAPI", no ficheiro appsettings.json</param>
+        /// <param name="productID">ID do produto que pretendemos atualizar</param>
+        /// <param name="estadoID">ID do estado para o qual queremos atualizar o produto</param>
+        /// <returns>Product com estado atualizado</returns>
+        public static async Task<Product> UpdateEstadoProduct(string conString, int productID, int estadoID)
+        {
+            try
+            {
+                using (SqlConnection  con = new SqlConnection(conString))
+                {
+                    string updateEstado = "UPDATE Product SET estadoID = @estadoID WHERE productID = @productID";
+                    using (SqlCommand queryUpdateEstado = new SqlCommand(updateEstado))
+                    {
+                        queryUpdateEstado.Connection = con;
+                        queryUpdateEstado.Parameters.Add("@estadoID", SqlDbType.Int).Value = estadoID;
+                        queryUpdateEstado.Parameters.Add("@productID", SqlDbType.Int).Value = productID;
+                        con.Open();
+                        queryUpdateEstado.ExecuteNonQuery();
+                        con.Close();
+                        return await GetProduct(conString, productID);
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
+        }
+
+        #endregion
+
+        #region DELETE
+
+        /// <summary>
+        /// Método que visa aceder à base de dados SQL Server via query e apagar o registo de um produto
+        /// </summary>
+        /// <param name="conString">String de conexão à base de dados, presente no projeto "ComfyCatalogAPI", no ficheiro appsettings.json</param>
+        /// <returns> sucesso ou erro</returns>
+        
+        public static async Task<Boolean> DeleteProduct(string conString, int productID)
+        {
+            try
+            {
+                using(SqlConnection con = new SqlConnection(conString))
+                {
+                    string deleteProduct = $"DELETE FROM Product WHERE productID = {productID}";
+                    using (SqlCommand queryDeleteProduct = new SqlCommand(deleteProduct))
+                    {
+                        queryDeleteProduct.Connection = con;
+                        con.Open();
+                        queryDeleteProduct.ExecuteNonQuery();
+                        con.Close();
+                        return true;
+
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
 
 
+        #endregion
 
     }
 }

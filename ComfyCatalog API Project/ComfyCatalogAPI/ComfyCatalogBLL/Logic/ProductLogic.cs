@@ -100,6 +100,68 @@ namespace ComfyCatalogBLL.Logic
         }
 
 
+        /// <summary>
+        /// Trata da parte lógica relativa à atualização do estado de um produto, dados estes que residem na base dados (tanto os estados, como os produtos)
+        /// Gera uma resposta que será utilizada pela ComfyCatalogAPI para responder ao request do utilizador (PATCH - Product (UpdateEstadoProduct))
+        /// </summary>
+        /// <param name="conString">Connection String da base de dados, que reside no appsettings.json do projeto ComfyCatalogAPI</param>
+        /// <param name="productID">ID do produto que o utilizador pretende atualizar o estado</param>
+        /// <param name="estadoID">ID do novo estado do produto</param>
+        /// <returns>Response com Status Code, mensagem e dados (idealmente, nos dados estará a sala atualizada)</returns>
+        public static async Task<Response> UpdateEstadoProduct(string conString, int  productID, int estadoID)
+        {
+            Response response = new Response();
+            try
+            {
+                Product productReturned = await ProductService.UpdateEstadoProduct(conString, productID, estadoID);
+                if (productReturned.ProductID == 0)
+                {
+                    response.StatusCode = StatusCodes.NOTFOUND;
+                    response.Message = "Product was not found";
+                }
+                else
+                {
+                    response.StatusCode = StatusCodes.SUCCESS;
+                    response.Message = "Product estado was updated";
+                    response.Data = productReturned;
+                }
+            }
+            catch( Exception ex)
+            {
+                response.StatusCode = StatusCodes.INTERNALSERVERERROR;
+                response.Message = ex.ToString();
+            }
+            return response;
+        }
+
+        /// <summary>
+        /// Trata da parte lógica relativa à remoção de um produto da base de dados
+        /// Gera uma resposta que será utilizada pela ComfyCatalogAPI para responder ao request do Admin (DELETE - Produto (DeleteProduct))
+        /// </summary>
+        /// <param name="conString">Connection String da base de dados, que reside no appsettings.json do projeto ComfyCatalogAPI</param>
+        /// <param name="productID">ID do produto a remover</param>
+        /// <returns>Response com Status Code e mensagem (indicando que o produto foi removido)</returns>
+        public static async Task<Response> DeleteProduct(string conString, int productID)
+        {
+            Response response = new Response();
+            try
+            {
+                if(await ProductService.DeleteProduct(conString, productID))
+                {
+                    response.StatusCode = StatusCodes.SUCCESS;
+                    response.Message = "Product was deleted from DB";
+                }
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = StatusCodes.INTERNALSERVERERROR;
+                response.Message = ex.ToString();
+            }
+            return response;
+        }
+
+
+
 
 
     }
