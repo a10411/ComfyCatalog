@@ -16,7 +16,7 @@ namespace ComfyCatalogDAL.Services
     /// </summary>
     public class ProductService
     {
-            #region GET
+        #region GET
 
         /// <summary>
         /// Método que visa aceder à base de dados SQL Server via query e obter os Produtos
@@ -65,6 +65,34 @@ namespace ComfyCatalogDAL.Services
             // retorna um produto com id = 0 caso não encontre nenhum com este ID
         }
 
+        /// <summary>
+        /// Método que visa aceder à base de dados SQL Server via query e obter um user por username
+        /// </summary>
+        /// <param name="conString">String de conexão à base de dados, presente no projeto "ComfyCatalogAPI", no ficheiro appsettings.json</param>
+        /// <returns>Lista dos produtos</returns>
+        public static async Task<User> GetUserByUsername(string conString, string username)
+        {
+            User user = new User();
+            using(SqlConnection con = new SqlConnection( conString ))
+            {
+                SqlCommand cmd = new SqlCommand($"SELECT * FROM User WHERE username = '{username}'", con);
+                cmd.CommandType = CommandType.Text;
+                con.Open();
+
+                SqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    user = new User();
+                }
+                rdr.Close();
+                con.Close();
+            }
+
+            return user;
+        }
+
+
+
         #endregion
 
         #region POST
@@ -101,6 +129,43 @@ namespace ComfyCatalogDAL.Services
                 }
             }
             catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Método que visa aceder à base de dados via SQL Query e adicionar um novo registo na tabela Favourites consoante o usernae de um user 
+        /// </summary>
+        /// <param name="conString">String de conexão à base de dados, presente no projeto "MonitumAPI", no ficheiro appsettings.json</param>
+        /// <param name="username">username do cliente a quem se vai adicionar um produto favorito</param>
+        /// <returns>True se adicionar, False se não adicionar</returns>
+        public static async Task<Boolean> SetFavouriteProductToUser(string conString, string username, int productID)
+        {
+            try
+            {
+                User user = await GetUserByUsername(conString, username);
+                Product product = await GetProduct(conString, productID);
+
+                using (SqlConnection con = new SqlConnection(conString))
+                {
+                    string addFavourite = "INSERT INTO Favourite (userID, productID) VALUES (@userID, @productID)";
+                    using (SqlCommand queryAddFavourite = new SqlCommand(addFavourite))
+                    {
+                        queryAddFavourite.Connection = con;
+                        queryAddFavourite.Parameters.Add("@userID", SqlDbType.Int).Value = user.UserID;
+                        queryAddFavourite.Parameters.Add("@productID", SqlDbType.Int).Value = product.ProductID;
+
+                        con.Open();
+                        queryAddFavourite.ExecuteNonQuery();
+                        con.Close();
+                        return true;
+                    }
+                }
+
+
+            }
+            catch 
             {
                 throw;
             }

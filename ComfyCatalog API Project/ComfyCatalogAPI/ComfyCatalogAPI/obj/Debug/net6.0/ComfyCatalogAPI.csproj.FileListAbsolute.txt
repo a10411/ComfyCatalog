@@ -47,3 +47,8 @@ C:\Users\nuno.veloso\Desktop\ComfyCatalog\ComfyCatalog API Project\ComfyCatalogA
 C:\Users\nuno.veloso\Desktop\ComfyCatalog\ComfyCatalog API Project\ComfyCatalogAPI\ComfyCatalogAPI\obj\Debug\net6.0\ComfyCatalogAPI.pdb
 C:\Users\nuno.veloso\Desktop\ComfyCatalog\ComfyCatalog API Project\ComfyCatalogAPI\ComfyCatalogAPI\obj\Debug\net6.0\ComfyCatalogAPI.genruntimeconfig.cache
 C:\Users\nuno.veloso\Desktop\ComfyCatalog\ComfyCatalog API Project\ComfyCatalogAPI\ComfyCatalogAPI\obj\Debug\net6.0\ref\ComfyCatalogAPI.dll
+C:\Users\nuno.veloso\Desktop\ComfyCatalog\ComfyCatalog API Project\ComfyCatalogAPI\ComfyCatalogAPI\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\nuno.veloso\Desktop\ComfyCatalog\ComfyCatalog API Project\ComfyCatalogAPI\ComfyCatalogAPI\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\nuno.veloso\Desktop\ComfyCatalog\ComfyCatalog API Project\ComfyCatalogAPI\ComfyCatalogAPI\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\nuno.veloso\Desktop\ComfyCatalog\ComfyCatalog API Project\ComfyCatalogAPI\ComfyCatalogAPI\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\nuno.veloso\Desktop\ComfyCatalog\ComfyCatalog API Project\ComfyCatalogAPI\ComfyCatalogAPI\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll

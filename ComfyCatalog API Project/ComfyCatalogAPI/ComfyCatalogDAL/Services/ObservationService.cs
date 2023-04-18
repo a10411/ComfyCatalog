@@ -11,7 +11,7 @@ namespace ComfyCatalogDAL.Services
 {
     /// <summary>
     /// Class que visa implementar todos os métodos de Data Access Layer referentes às Observações
-    /// Isto é, todos os acessos à base de dados relativos aos comunicados estarão implementados em funções implementadas dentro desta classe
+    /// Isto é, todos os acessos à base de dados relativos às observações estarão implementados em funções implementadas dentro desta classe
     /// </summary>
     public class ObservationService
     {
