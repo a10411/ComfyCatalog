@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -14,8 +15,9 @@ namespace ComfyCatalogBOL.Models
     public class Image
     {
         public int ImageID { get; set; }
-        public string ImagePath { get; set; }
         public string PhotoFileName { get; set; }
+        public string PhotoPath { get; set; }
+        public IFormFile Photo { get; set; }
 
 
         public Image() { }
@@ -28,8 +30,9 @@ namespace ComfyCatalogBOL.Models
         public Image(SqlDataReader rdr)
         {
             this.ImageID = Convert.ToInt32(rdr["imageID"]);
-            this.ImagePath = rdr["imagePath"].ToString() ?? string.Empty;
             this.PhotoFileName = rdr["photoFileName"].ToString() ?? string.Empty;
+            this.PhotoPath = rdr["photoPath"].ToString() ?? string.Empty;
+            this.Photo = null;
         }
     }
 }

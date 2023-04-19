@@ -18,4 +18,8 @@
     <ProjectReference Include="..\ComfyCatalogDAL\ComfyCatalogDAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Product_Images\" />
+  </ItemGroup>
+
 </Project>

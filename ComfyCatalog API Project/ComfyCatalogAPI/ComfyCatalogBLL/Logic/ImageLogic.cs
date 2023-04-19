@@ -31,5 +31,45 @@ namespace ComfyCatalogBLL.Logic
             }
             return response;
         }
+
+        /*
+        public static async Task<Response> AddImage(string conString, Image imageToAdd)
+        {
+            Response response = new Response();
+            try
+            {
+                if(await ImageService.AddImage(conString, imageToAdd) != 0)
+                {
+                    response.StatusCode = StatusCodes.SUCCESS;
+                    response.Message = "Image was added to Catalog";
+                }
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = StatusCodes.INTERNALSERVERERROR;
+                response.Message = ex.ToString();
+            }
+            return response;
+        }
+        */
+
+        public static async Task<Response> AddImageAndAssociateWithProduct(string conString, Image imageToAdd, int productId)
+        {
+            Response response = new Response();
+            try
+            {
+                int imageId = await ImageService.AddImage(conString, imageToAdd);
+                await ImageService.AddProductImage(conString, productId, imageId);
+                response.StatusCode = StatusCodes.SUCCESS;
+                response.Message = "Image was added to Catalog and associated with product";
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = StatusCodes.INTERNALSERVERERROR;
+                response.Message = ex.ToString();
+            }
+            return response;
+        }
+
     }
 }
