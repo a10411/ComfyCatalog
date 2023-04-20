@@ -110,7 +110,7 @@ namespace ComfyCatalogAPI.Controllers
         /// <summary>
         /// Request DELETE relativo a uma observação de um certo produto, que o utilizador pretenda apagar
         /// </summary>
-        /// <param name="idComunicado">ID do horário a remover da base de dados</param>
+        /// <param name="ObsID">ID do horário a remover da base de dados</param>
         /// <returns>Retorna a response obtida pelo BLL para o utlizador. Idealmente, retornará uma response que diz que o DELETE foi bem sucedido.</returns>
         [SwaggerResponse(StatusCodes.Status200OK, Description = "Method successfully executed.")]
         [SwaggerResponse(StatusCodes.Status204NoContent, Description = "No content was found.")]

@@ -15,9 +15,7 @@ namespace ComfyCatalogBOL.Models
     public class Image
     {
         public int ImageID { get; set; }
-        public string PhotoFileName { get; set; }
-        public string PhotoPath { get; set; }
-        public IFormFile Photo { get; set; }
+        public byte[] ImageData { get; set; }
 
 
         public Image() { }
@@ -30,9 +28,11 @@ namespace ComfyCatalogBOL.Models
         public Image(SqlDataReader rdr)
         {
             this.ImageID = Convert.ToInt32(rdr["imageID"]);
-            this.PhotoFileName = rdr["photoFileName"].ToString() ?? string.Empty;
-            this.PhotoPath = rdr["photoPath"].ToString() ?? string.Empty;
-            this.Photo = null;
+            object imageDataObj = rdr["imageData"];
+            if (imageDataObj != DBNull.Value)
+            {
+                this.ImageData = (byte[])imageDataObj;
+            }
         }
     }
 }

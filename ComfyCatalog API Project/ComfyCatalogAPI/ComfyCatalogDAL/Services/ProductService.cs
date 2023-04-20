@@ -137,7 +137,7 @@ namespace ComfyCatalogDAL.Services
         /// <summary>
         /// Método que visa aceder à base de dados via SQL Query e adicionar um novo registo na tabela Favourites consoante o usernae de um user 
         /// </summary>
-        /// <param name="conString">String de conexão à base de dados, presente no projeto "MonitumAPI", no ficheiro appsettings.json</param>
+        /// <param name="conString">String de conexão à base de dados, presente no projeto "ComfyCatalogAPI", no ficheiro appsettings.json</param>
         /// <param name="username">username do cliente a quem se vai adicionar um produto favorito</param>
         /// <returns>True se adicionar, False se não adicionar</returns>
         public static async Task<Boolean> SetFavouriteProductToUser(string conString, string username, int productID)

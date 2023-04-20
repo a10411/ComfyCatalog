@@ -19,26 +19,39 @@ namespace ComfyCatalogBLL.Logic
     /// </summary>
     public class ImageLogic
     {
+
+        /// <summary>
+        /// Trata da parte lógica relativa à obtenção de todas as imagens que residem na base de dados
+        /// Gera uma resposta que será utilizada pela ComfyCatalogAPI para responder ao request do utilizador (GET - Image (GetAllImages))
+        /// </summary>
+        /// <param name="conString">Connection String da base de dados, que reside no appsettings.json do projeto ComfyCatalogAPI</param>
+        /// <returns>Response com Status Code, mensagem e dados (Lista de Imagens)</returns>
         public static async Task<Response> GetAllImages(string conString)
         {
-            Response response = new Response();
-            List<Image> imageList = await ImageService.GetAllImages(conString);
-            if (imageList.Count != 0)
+            Response response= new Response();
+            List<Image> imgList = await ImageService.GetAllImages(conString);
+            if(imgList.Count != 0)
             {
                 response.StatusCode = StatusCodes.SUCCESS;
                 response.Message = "Sucesso na obtenção dos dados";
-                response.Data = imageList;
+                response.Data = imgList;
             }
             return response;
         }
 
-        /*
+        /// <summary>
+        /// Trata da parte lógica relativa à criação de uma imagem na base de dados. 
+        /// Gera uma resposta que será utilizada pela ComfyCatalogAPI para responder ao request do utilizador (POST - Product (AddProduct))
+        /// </summary>
+        /// <param name="conString">Connection String da base de dados, que reside no appsettings.json do projeto ComfyCatalogAPI</param>
+        /// <param name="imageToAdd">Product a adicionar </param>
+        /// <returns>Response com Status Code e mensagem (Status Code 200 caso sucesso, ou 500 INTERNAL SERVER ERROR caso tenha havido algum erro</returns>
         public static async Task<Response> AddImage(string conString, Image imageToAdd)
         {
-            Response response = new Response();
+            Response response= new Response();
             try
             {
-                if(await ImageService.AddImage(conString, imageToAdd) != 0)
+                if(await ImageService.AddImage(conString, imageToAdd))
                 {
                     response.StatusCode = StatusCodes.SUCCESS;
                     response.Message = "Image was added to Catalog";
@@ -51,25 +64,32 @@ namespace ComfyCatalogBLL.Logic
             }
             return response;
         }
-        */
 
-        public static async Task<Response> AddImageAndAssociateWithProduct(string conString, Image imageToAdd, int productId)
+
+        /// <summary>
+        /// Trata da parte lógica relativa à remoção de uma imagem de um produto da base de dados
+        /// Gera uma resposta que será utilizada pela ComfyCatalogAPI para responder ao request do utilizador (DELETE - Image (DeleteImage))
+        /// </summary>
+        /// <param name="conString">Connection String da base de dados, que reside no appsettings.json do projeto ComfyCatalogAPI</param>
+        /// <param name="obsID">ID da imagem a remover</param>
+        /// <returns>Response com Status Code e mensagem (indicando que a imagem foi apagada)</returns>
+        public static async Task<Response> DeleteImage(string conString, int imageID)
         {
-            Response response = new Response();
+            Response response= new Response();
             try
             {
-                int imageId = await ImageService.AddImage(conString, imageToAdd);
-                await ImageService.AddProductImage(conString, productId, imageId);
-                response.StatusCode = StatusCodes.SUCCESS;
-                response.Message = "Image was added to Catalog and associated with product";
+                if(await ImageService.DeleteImage(conString, imageID))
+                {
+                    response.StatusCode = StatusCodes.SUCCESS;
+                    response.Message = "Image was deleted";
+                }
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 response.StatusCode = StatusCodes.INTERNALSERVERERROR;
-                response.Message = ex.ToString();
+                response.Message = ex.ToString();   
             }
             return response;
         }
-
     }
 }

@@ -110,7 +110,7 @@ namespace ComfyCatalogBLL.Logic
         /// </summary>
         /// <param name="conString">Connection String da base de dados, que reside no appsettings.json do projeto ComfyCatalogAPI</param>
         /// <param name="obsID">ID da observação a remover</param>
-        /// <returns>Response com Status Code e mensagem (indicando que a observação foi adicionado)</returns>
+        /// <returns>Response com Status Code e mensagem (indicando que a observação foi apagado)</returns>
 
         public static async Task<Response> DeleteObservation(string conString, int obsID)
         {

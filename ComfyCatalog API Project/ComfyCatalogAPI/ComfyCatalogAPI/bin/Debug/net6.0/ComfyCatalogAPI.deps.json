@@ -694,6 +694,7 @@
       },
       "ComfyCatalogBOL/1.0.0": {
         "dependencies": {
+          "Microsoft.AspNetCore.Http.Features": "2.2.0",
           "System.Data.SqlClient": "4.8.5"
         },
         "runtime": {
